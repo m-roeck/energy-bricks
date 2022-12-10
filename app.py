@@ -1,4 +1,5 @@
 from dash import Dash, dcc, html, Input, Output
+import os
 import plotly.express as px
 import pandas as pd
 import dash_bootstrap_components as dbc
@@ -6,6 +7,8 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
 app = Dash(__name__)
+
+server = app.server
 
 app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
