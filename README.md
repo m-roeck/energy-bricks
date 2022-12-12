@@ -1,10 +1,24 @@
-<p align="left">
-<img width=30% src="visuals/logo.png" alt=“Energy_Bricks” />
+<h1 align="center">
+	<img
+		width="300"
+		alt="The Lounge"
+		src="assets/visuals/logoo.png">
+</h1>
+
+<h3 align="center">
+	Measuring wholesale energy market exposure, NEISO
+</h3>
+
+<p align="center">
+	<strong>
+		<a href="https://m.roeck-us.net">App</a>
+		•
+		<a href="https://www.iso-ne.com/isoexpress/web/charts">Data</a>
+		•
+		<a href="">Contact</a>
+	</strong>
 </p>
 
-<p align="left">
-Pipelines and Primitives for Machine Learning and Data Science.
-</p>
 
 # microsoft-risk
 A quick and dirty dashboard for analyzing wholesale energy market risk for Microsofts data centers.
