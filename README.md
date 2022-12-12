@@ -19,10 +19,33 @@
 	</strong>
 </p>
 
+<p align="center">
+	<a href="https://demo.thelounge.chat/"><img
+		alt="#thelounge IRC channel on Libera.Chat"
+		src="https://img.shields.io/badge/Libera.Chat-%23thelounge-415364.svg?colorA=ff9e18"></a>
+	<a href="https://yarn.pm/thelounge"><img
+		alt="npm version"
+		src="https://img.shields.io/npm/v/thelounge.svg?colorA=333a41&maxAge=3600"></a>
+	<a href="https://github.com/thelounge/thelounge/actions"><img
+		alt="Build Status"
+		src="https://github.com/thelounge/thelounge/workflows/Build/badge.svg"></a>
+</p>
 
-# microsoft-risk
-A quick and dirty dashboard for analyzing wholesale energy market risk for Microsofts data centers.
+<p align="center">
+	<img src="assets/visuals/app_capture.png" width="550">
+</p>
 
+
+## Overview
+Energy Bricks is a simple framework and project for analyzing wholesale energy market risk exposure. To-date the tool is built for NEISO, and utilizes pycaret for forecasting. 
+
+Features include:
+
+* Day-Ahead Locational Marginal Pricing, used to inform hourly risk and cost management strategies.
+* Visualization of wholesale prices against forecasts (validation data).
+* Trained regression and machine learning pipelines for NEISO price forecasting.
+
+## Data Pipeline
 
 
 
