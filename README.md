@@ -47,13 +47,10 @@ Features include:
 
 ## Data Pipeline
 
+The following visual describes the data pipeline utilized for the forecast and consequent risk management visualization.
 
+<p align="center">
+	<img src="assets/visuals/data_pipeline.png" width="800">
+</p>
 
-
-to address underlying uncertainties in the input data such limited coverage, instruments or observing systems biases, and the limitations of the model itself. GEFS quantifies these uncertainties by generating multiple forecasts, which in turn produce a range of potential outcomes based on differences or perturbations applied to the data after it has been incorporated into the model. Each forecast compensates for a different set of uncertainties.
-
-
-Getting the data in the right and efficient way. It’s more about mechanical, being able to deal with data, and getting what you need.
-
-
-Feature selection
+In order to address underlying uncertainties in the input data, the framework utilizes multiple forecasts, which in turn produce a range of potential outcomes. In conjuction, the models componesate for different sets of uncertainties, and in combination captures the extreme pricing events which the tool is designed to identify.
