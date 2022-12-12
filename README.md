@@ -50,7 +50,7 @@ Features include:
 The following visual describes the data pipeline utilized for the forecast and consequent risk management visualization.
 
 <p align="center">
-	<img src="assets/visuals/data_pipeline.png" width="800">
+	<img src="assets/visuals/data_pipeline.png" width="700">
 </p>
 
 In order to address underlying uncertainties in the input data, the framework utilizes multiple forecasts, which in turn produce a range of potential outcomes. In conjuction, the models componesate for different sets of uncertainties, and in combination captures the extreme pricing events which the tool is designed to identify.
