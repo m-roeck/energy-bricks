@@ -37,13 +37,13 @@
 
 
 ## Overview
-Energy Bricks is a simple framework and project for analyzing wholesale energy market risk exposure. To-date the tool is built for NEISO, and utilizes pycaret for forecasting. 
+Energy Bricks is a simple framework for analyzing wholesale energy market risk exposure. The tool utilizes day-ahead Locational Marginal Price forecasting to identify hours with high price and market exposure. To-date the tool is built for NEISO, and utilizes several different regression and ML models for forecasting.
 
 Features include:
 
 * Day-Ahead Locational Marginal Pricing, used to inform hourly risk and cost management strategies.
-* Visualization of wholesale prices against forecasts (validation data).
-* Trained regression and machine learning pipelines for NEISO price forecasting.
+* Visualization of wholesale prices against forecasts, utilizing model validation data.
+* Trained regression and machine learning pipelines for nodal price forecasting in NEISO.
 
 ## Data Pipeline
 
