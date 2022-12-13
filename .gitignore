@@ -2,3 +2,6 @@
 __pycache__/
 logs.log
 models/
+.DS_Store
+.env
+*.pyc
