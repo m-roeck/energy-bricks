@@ -74,18 +74,17 @@ The following visual describes the data pipeline utilized for the forecast and c
 
 In order to address underlying uncertainties in the input data, the framework utilizes multiple forecasts, which in turn produce a range of potential outcomes. In conjuction, the models componesate for different sets of uncertainties, and in combination captures the extreme pricing events which the tool is designed to identify.
 
-## Brief Analysis of Model Results
+## Sanity Checks
 
-The six highest performing models were selected according to their mean percentage error.
+The six highest performing models were selected according to their mean percentage error. A quick plot of our leading models feature important plot shows that historic prices and demand forecasts have the greatest influence on pricing. We see that calendar variables have a minor impact. In the future, the model could be updated to include the hour of the day as a variable, which is likely to have a significant impact.
 
 <p align="center">
 	<img src="assets/visuals/feature_important_plot.png" width="550">
 </p>
 
+In addition, a plot of residuals for the leading model shows an equal distribution across the range of predicted values. We see several outliers in the training data that could have effected the model as a whole. 
+
 <p align="center">
 	<img src="assets/visuals/residuals.png" width="550">
 </p>
 
-<p align="center">
-	<img src="assets/visuals/prediction_error.png" width="550">
-</p>
