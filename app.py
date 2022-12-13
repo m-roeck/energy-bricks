@@ -112,16 +112,46 @@ navbar = dbc.Navbar(
             dbc.NavItem(dbc.NavLink("Github", href="https://github.com/m-roeck/microsoft-risk")),
             dbc.NavItem(dbc.NavLink("Linkedin", href="https://www.linkedin.com/in/martin-roeck/")),
         ],
-        style={
-        'border': '3px solid black'
-        },
+        # style={
+        # 'border': '3px solid black'
+        # },
     ),
     color="white",
     dark=False,
-    style={
-        'border': '3px solid black'
-    },
+    # style={
+    #     'border': '3px solid black'
+    # },
 )
+
+first_description = dcc.Markdown('''
+    &nbsp;  
+    Boundary ----------------------------
+
+    **Brief Explanation**
+
+    Dash supports [Markdown](http://commonmark.org/help).
+
+    Markdown is a simple way to write 
+    and format text. It includes a 
+    syntax for things like **bold text** 
+    and *italics*, [links](http://commonmark.org/help)
+    , inline `code` snippets, lists, quotes, and more.
+''')
+
+second_description = dcc.Markdown('''
+    &nbsp;  
+    Boundary ----------------------------
+
+    **Brief Explanation**
+
+    Dash supports [Markdown](http://commonmark.org/help).
+
+    Markdown is a simple way to write 
+    and format text. It includes a 
+    syntax for things like **bold text** 
+    and *italics*, [links](http://commonmark.org/help)
+    , inline `code` snippets, lists, quotes, and more.
+''')
 
 
 app.layout = html.Div([
@@ -152,7 +182,7 @@ app.layout = html.Div([
     
     dcc.Tabs(
         id="tabs-with-classes-2",
-        value='tab-2',
+        value='tab-1',
         parent_className='custom-tabs',
         className='custom-tabs-container',
         children=[
@@ -165,11 +195,11 @@ app.layout = html.Div([
                     html.Div(
                         dbc.Row([
                             dbc.Col(html.Div(
-                                    "A single column",
+                                    first_description,
                                 ),
                                 width=3,
                                 style={
-                                    'border': '3px solid black'
+                                    'border-right': '1px solid #d6d6d6'
                                 },
                             ),
                             dbc.Col([
@@ -195,9 +225,9 @@ app.layout = html.Div([
                                 ]),
                             ]),
                         ]),
-                        style={
-                            'border': '3px solid black'
-                        },
+                        # style={
+                        #     'border': '3px solid black'
+                        # },
                     )
                 ]
             ),
@@ -210,11 +240,11 @@ app.layout = html.Div([
                     html.Div(
                         dbc.Row([
                             dbc.Col(html.Div(
-                                    "A single column",
+                                    second_description,
                                 ),
                                 width=3,
                                 style={
-                                    'border': '3px solid black'
+                                    'border-right': '1px solid #d6d6d6'
                                 },
                             ),
                             dbc.Col(
@@ -224,16 +254,16 @@ app.layout = html.Div([
                                 ),
                             ) 
                         ]),
-                        style={
-                            'border': '3px solid black'
-                        },
+                        # style={
+                        #     'border': '3px solid black'
+                        # },
                     )
                 ],
             ),
         ],
-        style={
-        'border': '3px solid black'
-        },
+        # style={
+        # 'border': '3px solid black'
+        # },
     )
 ])
 
