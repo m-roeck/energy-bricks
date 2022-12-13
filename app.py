@@ -264,6 +264,7 @@ def update_figure(selected_hour):
     fig_forecast.update_xaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', dtick=1)
     fig_forecast.update_yaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', title ="Price ($/MWh)")
     fig_forecast.update_xaxes(range=[0, 23])
+    fig_forecast.update_yaxes(range=[0, 300])
     fig_forecast.update_xaxes(showticklabels=False, title ="")
 
     fig_forecast.update_layout(

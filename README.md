@@ -45,17 +45,23 @@ Features include:
 * Visualization of wholesale prices against forecasts, utilizing model validation data.
 * Trained regression and machine learning pipelines for nodal price forecasting in NEISO.
 
-## Usage
+## Instructions
 
-Energy Bricks has two primary components: (1) a data pipeline and trained forecasting models to forecast LMP pricing, and (2) a dashboard that combines pricing with site-specific information, namely demand and power purchase agreements. 
-
-#### Data Pipeline and Forecasting Models
-
-The forecasting model is built in Jupyter Notebooks, and can be found in the 'notebooks' folder of this repository. The actual models are built using pycaret, but can also be loaded directly. For more information on the data pipeline, see the following section.
+Energy Bricks has two components: (1) data pipeline and trained models, and (2) a dashboard to uncover market exposure.
 
 #### Dashboard
 
-The dashboard houses two pages: (1) a visualization of model performance using validation data, and (2) 
+The dashboard is used to identify periods of extreme pricing events, in combination with periods when PPA energy supply is less than facility demand. This is visualized in the image below.
+
+<p align="center">
+	<img src="assets/visuals/dashboard_explanation.png" width="550">
+</p>
+
+In combination, these conditions lead to **wholesale market exposure.** This events can be mitigated day-ahead using systematic hedging strategies, for example.
+
+#### Data Pipeline and Forecasting Models
+
+The forecasting model is built in Jupyter Notebooks, and can be found in the 'notebooks' folder of this repository. For more information on the data pipeline, see the following section.
 
 
 ## Data Pipeline
@@ -71,10 +77,6 @@ In order to address underlying uncertainties in the input data, the framework ut
 ## Brief Analysis of Model Results
 
 The six highest performing models were selected according to their mean percentage error.
-
-<p align="center">
-	<img src="assets/visuals/model_results.png" width="550">
-</p>
 
 <p align="center">
 	<img src="assets/visuals/feature_important_plot.png" width="550">
