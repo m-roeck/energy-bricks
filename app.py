@@ -6,9 +6,10 @@ import dash_bootstrap_components as dbc
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import base64
+from app import app, server
 # from functions import retrieve_forecast
 
-app = Dash(__name__)
+app = Dash(__name__, suppress_callback_exceptions=True)
 
 server = app.server
 
