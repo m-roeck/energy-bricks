@@ -10,7 +10,7 @@ import base64
 
 app = Dash(__name__)
 
-# server = app.server
+server = app.server
 
 app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
