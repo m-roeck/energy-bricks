@@ -1,5 +1,5 @@
 from dash import Dash, dcc, html, Input, Output
-import os
+# import os
 import plotly.express as px
 import pandas as pd
 import dash_bootstrap_components as dbc
@@ -19,38 +19,9 @@ df_forecast = df_forecast.drop(['Unnamed: 0'], axis=1)
 
 logo = "assets/visuals/logoo.png"
 
-
-# navbar = dbc.NavbarSimple(
-#     children=[
-#         dbc.NavItem(dbc.NavLink("Github", href="https://github.com/m-roeck/microsoft-risk")),
-#         dbc.NavItem(dbc.NavLink("Linkedin", href="https://www.linkedin.com/in/martin-roeck/")),
-#     ],
-#     brand=html.Img(src=logo, height="30px"),
-#     brand_href="/Users/martin/myprojects/microsoft_risk/microsoft-risk/visuals/logo.png",
-#     color="white",
-#     style={
-#         'color':'black',
-#     },
-#     dark=False,
-# )
-
 navbar = dbc.Navbar(
     dbc.Container(
         [
-            # dbc.Col(
-            #     html.A(
-            #         # Use row and col to control vertical alignment of logo / brand
-            #         dbc.Row(
-            #             [
-            #                 dbc.Col(html.Img(src=logo, height="30px")),
-            #             ],
-            #             align="center",
-            #             className="g-0",
-            #         ),
-            #         style={"textDecoration": "none"},
-            #     ),
-            #     width={'offset': 0.8},
-            # ),
             dbc.Col(html.Img(src=logo, height="30px")),
             dbc.NavItem(dbc.NavLink("Github", href="https://github.com/m-roeck/microsoft-risk")),
             dbc.NavItem(dbc.NavLink("Linkedin", href="https://www.linkedin.com/in/martin-roeck/")),
@@ -112,30 +83,69 @@ image_filename = 'assets/visuals/prediction_error.png' # replace with your own i
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 
+load_wind_solar = pd.read_csv('notebooks/load_solar_wind.csv')
+load_wind_solar = load_wind_solar.drop(['Unnamed: 0'], axis=1)
+load = pd.read_csv('notebooks/load.csv')
+load = load.drop(['Unnamed: 0'], axis=1)
+
+df = pd.read_csv('notebooks/prediction.csv')
+df = df.rename(columns={"Unnamed: 0": "Hour"})
+df = df.set_index('Hour')
+
+# df = retrieve_forecast()
+df = df.T
+df = df.round(0)
+
+fig = make_subplots(2,1, vertical_spacing = 0.02, row_heights=[0.4,0.6])
+fig.add_trace(go.Bar(name="Wind PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_solar"], marker=dict(color='#EBC471')), row=2, col=1)
+fig.add_trace(go.Bar(name="Solar PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_wind"], marker=dict(color='#8AB280')), row=2, col=1)
+fig.add_trace(go.Scatter(name="Datacenter Demand", x=load["hour_ending"], y=load["value"], marker=dict(color='#071334')), row=2,col=1)
+fig.add_trace(
+    go.Heatmap(
+        z=df, text=df, texttemplate="%{text}", textfont={"size":12},
+        colorscale= 'Sunset',
+        zmin=0,
+        zmax=150,
+        y=['et', 'rf', 'xgboost', 'catboost', 'lightgbm', 'dt']
+    ), 
+    row=1, 
+    col=1
+)
+fig.update_layout(
+    barmode='stack',
+    width=1000,
+    height=585,
+    paper_bgcolor="#ffffff",
+    plot_bgcolor ="#FAFAFA"
+)
+fig.update_xaxes(showticklabels=False) # hide all the xticks
+fig.update_xaxes(showticklabels=True, row=2, col=1)
+fig.update_xaxes(showline = True, linecolor = 'black', linewidth = 1, row = 2, col = 1, mirror = True)
+fig.update_yaxes(showline = True, linecolor = 'black', linewidth = 1, row = 2, col = 1, mirror = True)
+fig.update_xaxes(showline = True, linecolor = 'black', linewidth = 1, row = 1, col = 1, mirror = True)
+fig.update_yaxes(showline = True, linecolor = 'black', linewidth = 1, row = 1, col = 1, mirror = True)
+fig.update_xaxes(title='Hour', row=2, col=1)
+fig.update_yaxes(title='Demand & Supply (kW)', row=2, col=1)
+fig.update_xaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', row=2, col=1, dtick=1, tickson="boundaries")
+fig.update_yaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', row=2, col=1)
+
+fig.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=0.57,
+        xanchor="left",
+        x=0.01
+    ),
+    margin={
+        't': 40,
+        'r': 0
+    },
+)
+
+
 app.layout = html.Div([
 
-    # dbc.Row([
-    #     dbc.Col(
-    #             html.A(
-    #                 # Use row and col to control vertical alignment of logo / brand
-    #                 dbc.Row(
-    #                     [
-    #                         dbc.Col(html.Img(src=logo, height="50px")),
-    #                     ],
-    #                     align="center",
-    #                     className="g-0",
-    #                 ),
-    #                 style={"textDecoration": "none"},
-    #             ),
-    #             width=9,
-    #         ),
-    #     dbc.Col([
-    #             dbc.Col(dbc.NavItem(dbc.NavLink("Github", href="https://github.com/m-roeck/microsoft-risk"))),
-    #             dbc.Col(dbc.NavItem(dbc.NavLink("Linkedin", href="https://www.linkedin.com/in/martin-roeck/")))
-    #         ], 
-    #         width=1
-    #     ),
-    # ]),
     navbar,
     
     dcc.Tabs(
@@ -163,6 +173,7 @@ app.layout = html.Div([
                                 },
                             ),
                             dbc.Col([
+                                dbc.Row("s ", style={'color':'white'}),
                                 dbc.Row(dcc.Graph(id='graph-with-slider')),
                                 dbc.Row([
                                     dbc.Col(
@@ -210,12 +221,13 @@ app.layout = html.Div([
                             dbc.Col([
                                 dcc.Graph(
                                     id = 'daily_risk_forecast',
+                                    figure=fig
                                 ),
-                                dcc.Interval(
-                                    id='interval-component',
-                                    interval=1*43200000,
-                                    n_intervals=0
-                                )
+                                # dcc.Interval(
+                                #     id='interval-component',
+                                #     interval=1*1000,
+                                #     n_intervals=0
+                                # )
                             ]) 
                         ]),
                         # style={
@@ -231,71 +243,71 @@ app.layout = html.Div([
     )
 ])
 
-@app.callback(
-    Output('daily_risk_forecast', 'figure'),
-    Input('interval-component', 'n_intervals'))
-def update_risk(n):
-    load_wind_solar = pd.read_csv('notebooks/load_solar_wind.csv')
-    load_wind_solar = load_wind_solar.drop(['Unnamed: 0'], axis=1)
-    load = pd.read_csv('notebooks/load.csv')
-    load = load.drop(['Unnamed: 0'], axis=1)
+# @app.callback(
+#     Output('daily_risk_forecast', 'figure'),
+#     Input('interval-component', 'n_intervals'))
+# def update_risk(n):
+#     load_wind_solar = pd.read_csv('notebooks/load_solar_wind.csv')
+#     load_wind_solar = load_wind_solar.drop(['Unnamed: 0'], axis=1)
+#     load = pd.read_csv('notebooks/load.csv')
+#     load = load.drop(['Unnamed: 0'], axis=1)
 
-    df = pd.read_csv('notebooks/prediction.csv')
-    df = df.rename(columns={"Unnamed: 0": "Hour"})
-    df = df.set_index('Hour')
+#     df = pd.read_csv('notebooks/prediction.csv')
+#     df = df.rename(columns={"Unnamed: 0": "Hour"})
+#     df = df.set_index('Hour')
 
-    # df = retrieve_forecast()
-    df = df.T
-    df = df.round(0)
+#     # df = retrieve_forecast()
+#     df = df.T
+#     df = df.round(0)
 
-    fig = make_subplots(2,1, vertical_spacing = 0.02, row_heights=[0.4,0.6])
-    fig.add_trace(go.Bar(name="Wind PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_solar"], marker=dict(color='#EBC471')), row=2, col=1)
-    fig.add_trace(go.Bar(name="Solar PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_wind"], marker=dict(color='#8AB280')), row=2, col=1)
-    fig.add_trace(go.Scatter(name="Datacenter Demand", x=load["hour_ending"], y=load["value"], marker=dict(color='#071334')), row=2,col=1)
-    fig.add_trace(
-        go.Heatmap(
-            z=df, text=df, texttemplate="%{text}", textfont={"size":12},
-            colorscale= 'Sunset',
-            zmin=0,
-            zmax=150,
-            y=['et', 'rf', 'xgboost', 'catboost', 'lightgbm', 'dt']
-        ), 
-        row=1, 
-        col=1
-    )
-    fig.update_layout(
-        barmode='stack',
-        width=1000,
-        height=585,
-        paper_bgcolor="#ffffff",
-        plot_bgcolor ="#FAFAFA"
-    )
-    fig.update_xaxes(showticklabels=False) # hide all the xticks
-    fig.update_xaxes(showticklabels=True, row=2, col=1)
-    fig.update_xaxes(showline = True, linecolor = 'black', linewidth = 1, row = 2, col = 1, mirror = True)
-    fig.update_yaxes(showline = True, linecolor = 'black', linewidth = 1, row = 2, col = 1, mirror = True)
-    fig.update_xaxes(showline = True, linecolor = 'black', linewidth = 1, row = 1, col = 1, mirror = True)
-    fig.update_yaxes(showline = True, linecolor = 'black', linewidth = 1, row = 1, col = 1, mirror = True)
-    fig.update_xaxes(title='Hour', row=2, col=1)
-    fig.update_yaxes(title='Demand & Supply (kW)', row=2, col=1)
-    fig.update_xaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', row=2, col=1, dtick=1, tickson="boundaries")
-    fig.update_yaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', row=2, col=1)
+#     fig = make_subplots(2,1, vertical_spacing = 0.02, row_heights=[0.4,0.6])
+#     fig.add_trace(go.Bar(name="Wind PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_solar"], marker=dict(color='#EBC471')), row=2, col=1)
+#     fig.add_trace(go.Bar(name="Solar PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_wind"], marker=dict(color='#8AB280')), row=2, col=1)
+#     fig.add_trace(go.Scatter(name="Datacenter Demand", x=load["hour_ending"], y=load["value"], marker=dict(color='#071334')), row=2,col=1)
+#     fig.add_trace(
+#         go.Heatmap(
+#             z=df, text=df, texttemplate="%{text}", textfont={"size":12},
+#             colorscale= 'Sunset',
+#             zmin=0,
+#             zmax=150,
+#             y=['et', 'rf', 'xgboost', 'catboost', 'lightgbm', 'dt']
+#         ), 
+#         row=1, 
+#         col=1
+#     )
+#     fig.update_layout(
+#         barmode='stack',
+#         width=1000,
+#         height=585,
+#         paper_bgcolor="#ffffff",
+#         plot_bgcolor ="#FAFAFA"
+#     )
+#     fig.update_xaxes(showticklabels=False) # hide all the xticks
+#     fig.update_xaxes(showticklabels=True, row=2, col=1)
+#     fig.update_xaxes(showline = True, linecolor = 'black', linewidth = 1, row = 2, col = 1, mirror = True)
+#     fig.update_yaxes(showline = True, linecolor = 'black', linewidth = 1, row = 2, col = 1, mirror = True)
+#     fig.update_xaxes(showline = True, linecolor = 'black', linewidth = 1, row = 1, col = 1, mirror = True)
+#     fig.update_yaxes(showline = True, linecolor = 'black', linewidth = 1, row = 1, col = 1, mirror = True)
+#     fig.update_xaxes(title='Hour', row=2, col=1)
+#     fig.update_yaxes(title='Demand & Supply (kW)', row=2, col=1)
+#     fig.update_xaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', row=2, col=1, dtick=1, tickson="boundaries")
+#     fig.update_yaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', row=2, col=1)
 
-    fig.update_layout(
-        legend=dict(
-            orientation="h",
-            yanchor="top",
-            y=0.57,
-            xanchor="left",
-            x=0.01
-        ),
-        margin={
-            't': 40,
-            'r': 0
-        },
-    )
+#     fig.update_layout(
+#         legend=dict(
+#             orientation="h",
+#             yanchor="top",
+#             y=0.57,
+#             xanchor="left",
+#             x=0.01
+#         ),
+#         margin={
+#             't': 40,
+#             'r': 0
+#         },
+#     )
 
-    return fig
+#     return fig
 
 
 @app.callback(
@@ -326,7 +338,7 @@ def update_figure(selected_hour):
     fig_forecast.update_xaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', dtick=1)
     fig_forecast.update_yaxes(showgrid=True, gridwidth=0, gridcolor='#f3f3f3', title ="Price ($/MWh)")
     fig_forecast.update_xaxes(range=[0, 23])
-    fig_forecast.update_yaxes(range=[0, 300])
+    fig_forecast.update_yaxes(range=[25, 125])
     fig_forecast.update_xaxes(showticklabels=False, title ="")
 
     fig_forecast.update_layout(
