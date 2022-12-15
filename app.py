@@ -97,8 +97,8 @@ df = df.T
 df = df.round(0)
 
 fig = make_subplots(2,1, vertical_spacing = 0.02, row_heights=[0.4,0.6])
-fig.add_trace(go.Bar(name="Wind PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_solar"], marker=dict(color='#EBC471')), row=2, col=1)
-fig.add_trace(go.Bar(name="Solar PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_wind"], marker=dict(color='#8AB280')), row=2, col=1)
+fig.add_trace(go.Bar(name="Solar PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_solar"], marker=dict(color='#EBC471')), row=2, col=1)
+fig.add_trace(go.Bar(name="Wind PPA", x=load_wind_solar["hour_ending"], y=load_wind_solar["tot_wind"], marker=dict(color='#8AB280')), row=2, col=1)
 fig.add_trace(go.Scatter(name="Datacenter Demand", x=load["hour_ending"], y=load["value"], marker=dict(color='#071334')), row=2,col=1)
 fig.add_trace(
     go.Heatmap(
