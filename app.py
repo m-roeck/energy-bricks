@@ -55,12 +55,12 @@ second_description = dcc.Markdown('''
     &nbsp;  
     **Brief Explanation**
 
-    This visualization can be used to easily identify
+    This visualization can be used to identify
     periods of wholesale price exposure for C&I 
-    sites. 
+    sites (e.g. data centers). 
 
     The top heatmap shows hourly day-ahead LMP forecasts
-    at the closest node to the site (i.e. that wholesale
+    at the closest node to the site (i.e. the wholesale
     price of electricity for the site).
 
     The chart below shows the facilities load,
