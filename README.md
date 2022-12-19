@@ -1,7 +1,7 @@
 <h1 align="center">
 	<img
 		width="300"
-		alt="The Lounge"
+		alt="Energy Bricks Logo"
 		src="assets/visuals/logoo.png">
 </h1>
 
