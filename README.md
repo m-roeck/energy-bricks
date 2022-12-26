@@ -20,12 +20,8 @@
 </p>
 
 <p align="center">
-	<a href="https://yarn.pm/thelounge"><img
-		alt="npm version"
-		src="https://img.shields.io/npm/v/thelounge.svg?colorA=333a41&maxAge=3600"></a>
-	<a href="https://github.com/thelounge/thelounge/actions"><img
-		alt="Build Status"
-		src="https://github.com/thelounge/thelounge/workflows/Build/badge.svg"></a>
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/m-roeck/energy-bricks?style=for-the-badge">
+	<img alt="GitHub" src="https://img.shields.io/github/license/m-roeck/energy-bricks?style=for-the-badge">
 </p>
 
 <p align="center">
