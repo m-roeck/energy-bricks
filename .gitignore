@@ -5,3 +5,4 @@ models/
 .DS_Store
 .env
 *.pyc
+notebooks/working.ipynb
